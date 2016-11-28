@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="StraksudbetalingerService"
+                  targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/OIR/Straksudbetalinger/1/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsp="http://www.w3.org/ns/ws-policy"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/OIR/Straksudbetalinger/1/"
+				  xmlns:spf="http://serviceplatformen.dk/xml/schemas/ServiceplatformFault/1/"
+				  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+				  xmlns:wsa="http://www.w3.org/2005/08/addressing"
+				  xmlns:trust="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+				  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				  xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en">
+			Version 0.9.0
+			Straksudbetalinger til KMD Udbetaling.
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/OIR/Straksudbetalinger/1/">
+			<xsd:include schemaLocation="StraksudbetalingerServiceTypes.xsd"/>
+		</xsd:schema>
+		<xsd:schema targetNamespace="http://serviceplatformen.dk/xml/schemas/ServiceplatformFault/1/">
+			<xsd:include schemaLocation="ServiceplatformFault_1.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- KOMBIT SAML policy -->
+	<wsp:Policy wsu:Id="STS_SAML_Token_policy">
+		<sp:SignedSupportingTokens>
+			<wsp:Policy wsp:Optional="false">
+				<sp:IssuedToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+					<!-- Nedenstående Issuer address er pt. ikke rigtig idet STS endpoint ikke kendt-->
+					<sp:Issuer>
+						<wsa:Address>https://url-til-sts</wsa:Address>
+					</sp:Issuer>
+					<sp:RequestSecurityTokenTemplate>
+						<trust:TokenType>urn:oasis:names:tc:SAML:2.0:assertion</trust:TokenType>
+					</sp:RequestSecurityTokenTemplate>
+				</sp:IssuedToken>
+				<sp:IncludeTimestamp/>
+				<sp:ProtectTokens/>
+				<sp:OnlySignEntireHeadersAndBody/>
+			</wsp:Policy>
+		</sp:SignedSupportingTokens>
+	</wsp:Policy>
+
+	<wsp:Policy wsu:Id="STS_SAML_Token_policy_optional">
+		<sp:SignedSupportingTokens>
+			<wsp:Policy wsp:Optional="true">
+				<sp:IssuedToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+					<!-- Nedenstående Issuer address er pt. ikke rigtig idet STS endpoint ikke kendt-->
+					<sp:Issuer>
+						<wsa:Address>https://url-til-sts</wsa:Address>
+					</sp:Issuer>
+					<sp:RequestSecurityTokenTemplate>
+						<trust:TokenType>urn:oasis:names:tc:SAML:2.0:assertion</trust:TokenType>
+					</sp:RequestSecurityTokenTemplate>
+				</sp:IssuedToken>
+				<sp:IncludeTimestamp/>
+				<sp:ProtectTokens/>
+				<sp:OnlySignEntireHeadersAndBody/>
+			</wsp:Policy>
+		</sp:SignedSupportingTokens>
+	</wsp:Policy>
+
+	<!-- Input policy for signing input -->
+	<wsp:Policy wsu:Id="Input_Policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts>
+					<sp:Body/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Framework" Namespace="urn:liberty:sb"/>
+				</sp:SignedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+
+	<!-- TLS policy for communicating with SP -->
+	<wsp:Policy wsu:Id="TLS_policy">
+		<sp:TransportBinding>
+			<wsp:Policy>
+				<sp:TransportToken>
+					<wsp:Policy>
+						<sp:HttpsToken RequireClientCertificate="true"/>
+					</wsp:Policy>
+				</sp:TransportToken>
+			</wsp:Policy>
+		</sp:TransportBinding>
+	</wsp:Policy>
+
+
+	<wsdl:message name="StraksudbetalingerOpretRequestMessage">
+		<wsdl:part name="parameters" element="tns:OpretRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="StraksudbetalingerOpretResponseMessage">
+		<wsdl:part name="parameters" element="tns:OpretResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="StraksudbetalingerTjekRequestMessage">
+		<wsdl:part name="parameters" element="tns:TjekRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="StraksudbetalingerTjekResponseMessage">
+		<wsdl:part name="parameters" element="tns:TjekResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="StraksudbetalingerGenudskrivBilagRequestMessage">
+		<wsdl:part name="parameters" element="tns:GenudskrivBilagRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="StraksudbetalingerGenudskrivBilagResponseMessage">
+		<wsdl:part name="parameters" element="tns:GenudskrivBilagResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="ServiceplatformFault">
+		<wsdl:part name="error" element="spf:ServiceplatformFault"/>
+	</wsdl:message>
+
+	<wsdl:portType name="StraksudbetalingerServicePortType">
+		<wsdl:operation name="Opret">
+			<wsdl:input wsaw:Action="http://tempuri.org/IStraksudbetalinger/Opret" message="tns:StraksudbetalingerOpretRequestMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IStraksudbetalinger/OpretResponse" message="tns:StraksudbetalingerOpretResponseMessage"/>
+			<wsdl:fault message="tns:ServiceplatformFault" name="ServiceplatformFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="Tjek">
+			<wsdl:input wsaw:Action="http://tempuri.org/IStraksudbetalinger/Tjek" message="tns:StraksudbetalingerTjekRequestMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IStraksudbetalinger/TjekResponse" message="tns:StraksudbetalingerTjekResponseMessage"/>
+			<wsdl:fault message="tns:ServiceplatformFault" name="ServiceplatformFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="GenudskrivBilag">
+			<wsdl:input wsaw:Action="http://tempuri.org/IStraksudbetalinger/GenudskrivBilag" message="tns:StraksudbetalingerGenudskrivBilagRequestMessage"/>
+			<wsdl:output wsaw:Action="http://tempuri.org/IStraksudbetalinger/GenudskrivBilagResponse" message="tns:StraksudbetalingerGenudskrivBilagResponseMessage"/>
+			<wsdl:fault message="tns:ServiceplatformFault" name="ServiceplatformFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="StraksudbetalingerServiceBinding" type="tns:StraksudbetalingerServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<wsdl:operation name="Opret">
+			<soap:operation soapAction="http://tempuri.org/IStraksudbetalinger/Opret" style="document"/>
+			<wsdl:input>
+				<wsp:PolicyReference URI="#Input_Policy"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ServiceplatformFault">
+				<soap:fault name="ServiceplatformFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+		<wsdl:operation name="Tjek">
+			<soap:operation soapAction="http://tempuri.org/IStraksudbetalinger/Tjek" style="document"/>
+			<wsdl:input>
+				<wsp:PolicyReference URI="#Input_Policy"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ServiceplatformFault">
+				<soap:fault name="ServiceplatformFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+		<wsdl:operation name="GenudskrivBilag">
+			<soap:operation soapAction="http://tempuri.org/IStraksudbetalinger/GenudskrivBilag" style="document"/>
+			<wsdl:input>
+				<wsp:PolicyReference URI="#Input_Policy"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ServiceplatformFault">
+				<soap:fault name="ServiceplatformFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="StraksudbetalingerService">
+		<wsdl:port name="StraksudbetalingerService" binding="tns:StraksudbetalingerServiceBinding">
+			<soap:address location="http://localhost:8080/service/OIR/Straksudbetalinger/1"/>
+			<wsp:PolicyReference URI="#STS_SAML_Token_policy"/>
+			<wsp:PolicyReference URI="#TLS_policy"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
+
+
+
+

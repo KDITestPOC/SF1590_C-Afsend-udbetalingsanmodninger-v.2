@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/KMD.GF" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/KMD.GF">
+    <xs:complexType name="AfsenderInfo">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="DataLeverandoerId" type="xs:short"/>
+            <xs:element minOccurs="0" name="Organisation" nillable="true" type="tns:Organisation"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="AfsenderInfo" nillable="true" type="tns:AfsenderInfo"/>
+    <xs:complexType name="Organisation">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="AndenKommunalOrganisationsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="AndenRegionalOrganisationsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="MinisteriumsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="PrimaerKommuneId" type="xs:short"/>
+            <xs:element minOccurs="0" name="PrivatVirksomhedsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="RegionsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="SelvejendeInstitutionsId" type="xs:short"/>
+            <xs:element minOccurs="0" name="StatsinstitutionsId" type="xs:short"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Organisation" nillable="true" type="tns:Organisation"/>
+    <xs:complexType name="Identifikation">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="CPRnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="CVRnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Faellesindbetalingsnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="FritValgtNummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Girokontonummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Myndighedsnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="PBSnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="PengeinstitutKontonummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Produktionsenhedsnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="SEnummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Telefonnummer" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Identifikation" nillable="true" type="tns:Identifikation"/>
+    <xs:complexType name="Status">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Information" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Kode" type="xs:int"/>
+            <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Status" nillable="true" type="tns:Status"/>
+</xs:schema>

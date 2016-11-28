@@ -1,0 +1,20 @@
+<ns:Trigger xmlns:ns="http://serviceplatformen.dk/xml/wsdl/soap11/SFTP/1/types">
+    <FileDescriptor>
+        <FileName>UDB-G68-HIT.txt</FileName>
+        <SizeInBytes>3935</SizeInBytes>
+        <Sender>Testtool01</Sender>
+        <SendersFileId>Udbetalingsanmodning</SendersFileId>
+        <Recipients>Testtool01</Recipients>
+    </FileDescriptor>
+    <FileContentDescriptor>
+        <SFTPDynamicRoutingInfo>
+            <InfRef>SF1590_C_IF02</InfRef>
+            <SenderIt-system>78419451-312a-4e5d-aad6-fe3359982257</SenderIt-system>
+            <SenderAuthority>urn:oio:cvr:55133018</SenderAuthority>
+            <TransactionId>fc1c0c92-6020-4169-adfe-3b691154346f</TransactionId>
+            <SenderTimestamp>2016-11-25T12:00:01+01:00</SenderTimestamp>
+	    <RecipientIt-system>78419451-312a-4e5d-aad6-fe3359982257</RecipientIt-system>
+            <RecipientAuthority>urn:oio:cvr:55133018</RecipientAuthority>
+        </SFTPDynamicRoutingInfo>
+    </FileContentDescriptor>
+</ns:Trigger>

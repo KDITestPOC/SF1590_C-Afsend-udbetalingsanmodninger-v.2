@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger" xmlns:q1="http://schemas.datacontract.org/2004/07/KMD.GF" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <xs:import namespace="http://schemas.datacontract.org/2004/07/KMD.GF" schemaLocation="KMD-GF.xsd"/>
+    <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="ms-serialization-arrays.xsd"/>
+    <xs:complexType name="Request">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="AfsenderInfo" nillable="true" type="q1:AfsenderInfo"/>
+            <xs:element minOccurs="0" name="Bilagsinfo" nillable="true" type="tns:Bilagsinfo"/>
+            <xs:element minOccurs="0" name="Destination" nillable="true" type="tns:Destination"/>
+            <xs:element minOccurs="0" name="Faktura" nillable="true" type="tns:Faktura"/>
+            <xs:element minOccurs="0" name="Sagsbehandler" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Tekst" nillable="true" type="q2:ArrayOfstring"/>
+            <xs:element minOccurs="0" name="Udbetalingsinfo" nillable="true" type="tns:Udbetalingsinfo"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Request" nillable="true" type="tns:Request"/>
+    <xs:complexType name="Bilagsinfo">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="AFPprinter" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="RegKontonummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="UdskrivBilag" type="xs:boolean"/>
+            <xs:element minOccurs="0" name="UdskrivBilagskopi" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Bilagsinfo" nillable="true" type="tns:Bilagsinfo"/>
+    <xs:complexType name="Destination">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Adresse" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Bynavn" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="COnavn" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Navn" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="PIkontonummer" type="xs:long"/>
+            <xs:element minOccurs="0" name="PIregNummer" type="xs:short"/>
+            <xs:element minOccurs="0" name="Postnummer" type="xs:short"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Destination" nillable="true" type="tns:Destination"/>
+    <xs:complexType name="Faktura">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Fakturanummer" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="KodeForEfaktura" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Faktura" nillable="true" type="tns:Faktura"/>
+    <xs:complexType name="Udbetalingsinfo">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="AdministrativEnhedsId" type="xs:int"/>
+            <xs:element minOccurs="0" name="Beloeb" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Identifikation" nillable="true" type="q3:Identifikation" xmlns:q3="http://schemas.datacontract.org/2004/07/KMD.GF"/>
+            <xs:element minOccurs="0" name="Kaldenavn" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Laeselinje" nillable="true" type="tns:Laeselinje"/>
+            <xs:element minOccurs="0" name="MedieId" type="xs:short"/>
+            <xs:element minOccurs="0" name="PosteringsHenvisning" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="UdbetalingsIdent" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Udbetalingsdato" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="UdbetalingstypeId" type="xs:short"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Udbetalingsinfo" nillable="true" type="tns:Udbetalingsinfo"/>
+    <xs:complexType name="Laeselinje">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Betalingsidentifikation" type="xs:long"/>
+            <xs:element minOccurs="0" name="Kortartkode" type="xs:short"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Laeselinje" nillable="true" type="tns:Laeselinje"/>
+    <xs:complexType name="Response">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Status" nillable="true" type="q4:Status" xmlns:q4="http://schemas.datacontract.org/2004/07/KMD.GF"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Response" nillable="true" type="tns:Response"/>
+</xs:schema>

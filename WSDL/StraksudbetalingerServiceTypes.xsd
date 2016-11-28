@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+		   targetNamespace="http://serviceplatformen.dk/xml/wsdl/soap11/OIR/Straksudbetalinger/1/"
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns:callctx="http://serviceplatformen.dk/xml/schemas/CallContext/1/"
+		   xmlns:autctx="http://serviceplatformen.dk/xml/schemas/AuthorityContext/1/"
+		   xmlns:udb="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger"
+		   xmlns:udbtjek="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger.Tjek">
+
+	<xs:import namespace="http://serviceplatformen.dk/xml/schemas/CallContext/1/" schemaLocation="CallContext_1.xsd"/>
+	<xs:import namespace="http://serviceplatformen.dk/xml/schemas/AuthorityContext/1/" schemaLocation="AuthorityContext_1.xsd"/>
+	<xs:import namespace="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger" schemaLocation="SF1590_EP_KU1/KMD-GF-Straksudbetalinger.xsd"/>
+	<xs:import namespace="http://schemas.datacontract.org/2004/07/KMD.GF.Straksudbetalinger.Tjek" schemaLocation="SF1590_EP_KU1/KMD-GF-Straksudbetalinger-Tjek.xsd"/>
+
+	<xs:element name="OpretRequestType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="callctx:CallContext" minOccurs="0"/>
+				<xs:element ref="autctx:AuthorityContext" minOccurs="0"/>
+				<xs:element ref="udb:Request" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OpretResponseType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="udb:Response" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TjekRequestType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="callctx:CallContext" minOccurs="0"/>
+				<xs:element ref="autctx:AuthorityContext" minOccurs="0"/>
+				<xs:element ref="udb:Request" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TjekResponseType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="udbtjek:Response" minOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GenudskrivBilagRequestType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="callctx:CallContext" minOccurs="0"/>
+				<xs:element ref="autctx:AuthorityContext" minOccurs="0"/>
+				<xs:element ref="udb:Request" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GenudskrivBilagResponseType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="udb:Response" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
